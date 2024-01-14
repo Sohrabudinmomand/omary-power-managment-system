@@ -1,7 +1,5 @@
-import React from "react";
-
 const Dashboard = () => {
-  return <div>Sohrab</div>;
+  return <div>Sohrab momand by defualt dashboard</div>;
 };
 
 export default Dashboard;
