@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Home,
@@ -15,20 +15,24 @@ import {
 import SideBarLogo from "./assets/sidebar-logo.png";
 
 const Sidebar = () => {
-  const [activeItem, setActiveItem] = useState("Dashboard");
+  const [activeItem, setActiveItem] = useState(
+    localStorage.getItem("activeItem") || "Dashboard"
+  );
+
+  const [isDropdownVisible, SetDropdownVisible] = useState(false);
+
   const handleItemClick = (item) => {
     setActiveItem(item);
+    SetDropdownVisible(false);
   };
 
-  const [dropdownMenu, setDropdownMenu] = useState(false);
-
-  const onExpenseClick = () => {
-    setDropdownMenu(!dropdownMenu);
-  };
+  useEffect(() => {
+    localStorage.setItem("activeItem", activeItem);
+  }, [activeItem]);
 
   return (
     <div className="w-1/5 h-auto flex flex-col px-5 bg-white border relative">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center my-2">
         <img className="w-[96px] h-[96px]" src={SideBarLogo} alt="" />
       </div>
       <div className="w-full flex flex-col items-center">
@@ -92,45 +96,43 @@ const Sidebar = () => {
           <span className="ml-2">HRM</span>
         </Link>
 
-        <div
-          className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer relative
-          ${activeItem === "Expenses" ? "bg-red-500" : "bg-white"}`}
-          onClick={() => handleItemClick("Expenses")}
+        <Link
+          to="/"
+          className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
+    ${activeItem === "Expenses" ? "bg-red-500" : "bg-white"}`}
+          onClick={() => {
+            handleItemClick("Expenses");
+            SetDropdownVisible(!isDropdownVisible);
+          }}
         >
           <span>
             <MonetizationOn />
           </span>
-          <span className="ml-2" onClick={onExpenseClick}>
-            Expenses
-          </span>
-          {dropdownMenu && (
-            <div className="absolute top-10 left-0 mt-2 bg-white border rounded shadow">
-              <Link
-                to="/expenses/all"
-                className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-                ${activeItem === "All expenses" ? "bg-red-500" : "bg-white"}`}
-                onClick={() => handleItemClick("All expenses")}
-              >
-                <span>
-                  <FiberManualRecordIcon />
-                </span>
-                <span className="ml-2">All expenses</span>
-              </Link>
+          <span className="ml-2">Expenses</span>
+        </Link>
 
-              <Link
-                to="/expenses/payment-sent
-              "
-                className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-              ${activeItem === "Payment sent" ? "bg-red-500" : "bg-white"}`}
-                onClick={() => handleItemClick("Payment sent")}
-              >
-                <span>
-                  <FiberManualRecordIcon />
-                </span>
-                <span className="ml-2">Payment sent</span>
-              </Link>
-            </div>
-          )}
+        <div className={isDropdownVisible ? "" : "hidden"}>
+          <Link
+            to="/expenses/all"
+            className="w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer border my-2"
+            onClick={() => handleItemClick("All Expenses")}
+          >
+            <span>
+              <FiberManualRecordIcon />
+            </span>
+            <span className="ml-2">All expenses</span>
+          </Link>
+
+          <Link
+            to="/expenses/payment-sent"
+            className="w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer border"
+            onClick={() => handleItemClick("Payment Sent")}
+          >
+            <span>
+              <FiberManualRecordIcon />
+            </span>
+            <span className="ml-2">Payment sent</span>
+          </Link>
         </div>
 
         <Link
