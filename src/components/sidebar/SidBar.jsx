@@ -19,11 +19,16 @@ const Sidebar = () => {
     localStorage.getItem("activeItem") || "Dashboard"
   );
 
-  const [isDropdownVisible, SetDropdownVisible] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const handleItemClick = (item) => {
     setActiveItem(item);
-    SetDropdownVisible(false);
+    setDropdownVisible(false);
+  };
+
+  const handleDropdownItemClick = (item) => {
+    setActiveItem(item);
+    setDropdownVisible(false);
   };
 
   useEffect(() => {
@@ -39,7 +44,7 @@ const Sidebar = () => {
         <Link
           to="/"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-    ${activeItem === "Dashboard" ? "bg-red-500" : "bg-white"}`}
+    ${activeItem === "Dashboard" ? "bg-[#112F53] text-white" : "bg-white"}`}
           onClick={() => handleItemClick("Dashboard")}
         >
           <span>
@@ -51,7 +56,9 @@ const Sidebar = () => {
         <Link
           to="/Customer"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-          ${activeItem === "Customers" ? "bg-red-500" : "bg-white"}`}
+          ${
+            activeItem === "Customers" ? "bg-[#112F53] text-white" : "bg-white"
+          }`}
           onClick={() => handleItemClick("Customers")}
         >
           <span>
@@ -63,7 +70,11 @@ const Sidebar = () => {
         <Link
           to="/MeterCycle"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-          ${activeItem === "Meter Cycle" ? "bg-red-500" : "bg-white"}`}
+          ${
+            activeItem === "Meter Cycle"
+              ? "bg-[#112F53] text-white"
+              : "bg-white"
+          }`}
           onClick={() => handleItemClick("Meter Cycle")}
         >
           <span>
@@ -75,7 +86,9 @@ const Sidebar = () => {
         <Link
           to="/Earnings"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-          ${activeItem === "Earnings" ? "bg-red-500" : "bg-white"}`}
+          ${
+            activeItem === "Earnings" ? "bg-[#112F53] text-white" : "bg-white"
+          }`}
           onClick={() => handleItemClick("Earnings")}
         >
           <span>
@@ -87,7 +100,7 @@ const Sidebar = () => {
         <Link
           to="/HRM"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-          ${activeItem === "HRM" ? "bg-red-500" : "bg-white"}`}
+          ${activeItem === "HRM" ? "bg-[#112F53] text-white" : "bg-white"}`}
           onClick={() => handleItemClick("HRM")}
         >
           <span>
@@ -99,10 +112,10 @@ const Sidebar = () => {
         <Link
           to="/"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-    ${activeItem === "Expenses" ? "bg-red-500" : "bg-white"}`}
+    ${activeItem === "Expenses" ? "bg-[#112F53] text-white" : "bg-white"}`}
           onClick={() => {
             handleItemClick("Expenses");
-            SetDropdownVisible(!isDropdownVisible);
+            setDropdownVisible(!isDropdownVisible);
           }}
         >
           <span>
@@ -115,7 +128,10 @@ const Sidebar = () => {
           <Link
             to="/expenses/all"
             className="w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer border my-2"
-            onClick={() => handleItemClick("All Expenses")}
+            onClick={() => {
+              handleItemClick("All Expenses");
+              setDropdownVisible(!isDropdownVisible);
+            }}
           >
             <span>
               <FiberManualRecordIcon />
@@ -126,7 +142,10 @@ const Sidebar = () => {
           <Link
             to="/expenses/payment-sent"
             className="w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer border"
-            onClick={() => handleItemClick("Payment Sent")}
+            onClick={() => {
+              handleItemClick("All Expenses");
+              setDropdownVisible(!isDropdownVisible);
+            }}
           >
             <span>
               <FiberManualRecordIcon />
@@ -138,8 +157,8 @@ const Sidebar = () => {
         <Link
           to="/Reports"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-          ${activeItem === "Reports" ? "bg-red-500" : "bg-white"}`}
-          onClick={() => handleItemClick("Reports")}
+          ${activeItem === "Reports" ? "bg-[#112F53] text-white" : "bg-white"}`}
+          onClick={() => handleDropdownItemClick("Reports")}
         >
           <span>
             <ShowChart />
@@ -150,7 +169,9 @@ const Sidebar = () => {
         <Link
           to="/Settings"
           className={`w-full flex flex-row items-center justify-start p-4 rounded cursor-pointer
-          ${activeItem === "Settings" ? "bg-red-500" : "bg-white"}`}
+          ${
+            activeItem === "Settings" ? "bg-[#112F53] text-white" : "bg-white"
+          }`}
           onClick={() => handleItemClick("Settings")}
         >
           <span>
