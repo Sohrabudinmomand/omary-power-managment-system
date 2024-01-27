@@ -20,7 +20,15 @@ import DialogActions from "@mui/material/DialogActions";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 
-// import TextField from "@mui/material/TextField";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
+const ActionCell = () => (
+  <div className="flex gap-3">
+    <DriveFileRenameOutlineIcon />
+    <DeleteOutlineIcon className="text-red-700" />
+  </div>
+);
 
 const columns = [
   { field: "DATE", headerName: "DATE", flex: 1 },
@@ -29,7 +37,7 @@ const columns = [
   { field: "PEOPLE", headerName: "PEOPLE", flex: 1 },
   { field: "AMOUNT", headerName: "AMOUNT", flex: 1 },
   { field: "CATEGORY", headerName: "CATEGORY", flex: 1 },
-  { field: "Action", headerName: "Action", flex: 1 },
+  { field: "Action", headerName: "Action", flex: 1, renderCell: ActionCell },
 ];
 
 const rows = [
@@ -41,6 +49,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 2,
@@ -50,6 +59,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 3,
@@ -59,6 +69,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 4,
@@ -68,6 +79,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 5,
@@ -77,6 +89,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 6,
@@ -86,6 +99,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 7,
@@ -95,6 +109,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
   {
     id: 8,
@@ -104,6 +119,7 @@ const rows = [
     PEOPLE: "Ahmad",
     AMOUNT: "10,000 AFG",
     CATEGORY: "Paid",
+    Action: { DriveFileRenameOutlineIcon, DeleteOutlineIcon },
   },
 ];
 
@@ -182,10 +198,10 @@ const AllExpenses = () => {
           }}
         />
       </div>
-
       {/* the data table ends here */}
+
       {/* the dilog box or window box starts here */}
-      <div>
+      <div className="w-fit">
         <BootstrapDialog
           onClose={handleClickClose}
           aria-labelledby="customized-dialog-title"
@@ -206,9 +222,9 @@ const AllExpenses = () => {
           >
             <CloseIcon />
           </IconButton>
-          <div className="w-[100%] h-[1px] bg-[#b2bec3] m-4"></div>
+          <div className="w-auto h-[1px] bg-[#b2bec3] m-4"></div>
 
-          <div className="flex flex-row">
+          <div className="flex flex-row w-auto">
             <div className="m-4">
               <TextField
                 id="outlined-basic"
@@ -237,7 +253,7 @@ const AllExpenses = () => {
                       borderColor: "#000",
                     },
                   },
-                  width: "300px",
+                  width: "100%",
                 }}
               />
             </div>
@@ -247,7 +263,7 @@ const AllExpenses = () => {
             <div className="m-4">
               <TextField
                 id="outlined-basic"
-                label="Name *"
+                label="Person *"
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -257,7 +273,7 @@ const AllExpenses = () => {
                       borderColor: "#000",
                     },
                   },
-                  width: "300px",
+                  width: "100%",
                 }}
               />
             </div>
@@ -265,27 +281,7 @@ const AllExpenses = () => {
             <div className="m-4">
               <TextField
                 id="outlined-basic"
-                label="Expense Category *"
-                variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    height: "50px",
-                    borderRadius: "5px",
-                    "&:focus": {
-                      borderColor: "#000",
-                    },
-                  },
-                  width: "300px",
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="w-auto h-auto flex flex-row">
-            <div className="m-4">
-              <TextField
-                id="outlined-basic"
-                label="Name *"
+                label="Amount *"
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -300,7 +296,27 @@ const AllExpenses = () => {
               />
             </div>
           </div>
-          <DialogActions>
+
+          <div className="w-full h-auto flex flex-row">
+            <div className="m-4">
+              <TextField
+                id="outlined-basic"
+                label="Details *"
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: "100px",
+                    borderRadius: "5px",
+                    "&:focus": {
+                      borderColor: "#000",
+                    },
+                  },
+                  width: "214%",
+                }}
+              />
+            </div>
+          </div>
+          <DialogActions className="m-4">
             <Button autoFocus onClick={handleClickClose} variant="contained">
               Submite
             </Button>
