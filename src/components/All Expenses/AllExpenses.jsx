@@ -21,7 +21,6 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 
 // import TextField from "@mui/material/TextField";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
 const columns = [
   { field: "DATE", headerName: "DATE", flex: 1 },
@@ -117,8 +116,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const filter = createFilterOptions();
-
 const AllExpenses = () => {
   const [openCreateModel, setOpencreateModel] = React.useState(false);
 
@@ -131,8 +128,8 @@ const AllExpenses = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col p-2">
-      <div className="w-full h-auto flex flex-row my-6">
+    <div className="w-full h-auto flex flex-col p-2">
+      <div className="w-fit h-fit flex flex-row m-4">
         <Breadcrumbs aria-label="breadcrumb">
           <Link underline="hover" color="inherit" href="/">
             Expneses
@@ -140,11 +137,11 @@ const AllExpenses = () => {
           <Typography color="text.primary">All Expneses</Typography>
         </Breadcrumbs>
       </div>
-      <div className="w-full h-auto flex flex-row justify-between">
+      <div className="w-auto h-[1px] bg-[#b2bec3] m-4"></div>
+      <div className="w-auto h-fit flex flex-row justify-between m-4">
         <div>
           <TextField
             variant="outlined"
-            fullWidth
             placeholder="search"
             InputProps={{
               startAdornment: (
@@ -156,10 +153,7 @@ const AllExpenses = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: "5px",
-
-                "&.Mui-focused": {
-                  borderColor: "Black",
-                },
+                height: "38px",
               },
             }}
           />
@@ -173,19 +167,24 @@ const AllExpenses = () => {
           </Stack>
         </div>
       </div>
-      <div className="h-[400] w-full">
+      {/* the data table starts here */}
+      <div className="h-auto w-full p-4">
         <DataGrid
           rows={rows}
           columns={columns}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          getRowId={(row) => row.id}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 5 },
             },
           }}
-          pageSizeOption={[5, 10]}
-          checkboxSelection
         />
       </div>
+
+      {/* the data table ends here */}
+      {/* the dilog box or window box starts here */}
       <div>
         <BootstrapDialog
           onClose={handleClickClose}
@@ -207,54 +206,108 @@ const AllExpenses = () => {
           >
             <CloseIcon />
           </IconButton>
-          <Autocomplete
-            filterOptions={(options, params) => {
-              const filtered = filter(options, params);
+          <div className="w-[100%] h-[1px] bg-[#b2bec3] m-4"></div>
 
-              const { inputValue } = params;
-              // Suggest the creation of a new value
-              const isExisting = options.some(
-                (option) => inputValue === option.title
-              );
-              if (inputValue !== "" && !isExisting) {
-                filtered.push({
-                  inputValue,
-                  title: `Add "${inputValue}"`,
-                });
-              }
+          <div className="flex flex-row">
+            <div className="m-4">
+              <TextField
+                id="outlined-basic"
+                label="Name *"
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: "50px",
+                    borderRadius: "5px",
+                  },
+                  width: "100%",
+                }}
+              />
+            </div>
 
-              return filtered;
-            }}
-            selectOnFocus
-            clearOnBlur
-            handleHomeEndKeys
-            id="free-solo-with-text-demo"
-            getOptionLabel={(option) => {
-              // Value selected with enter, right from the input
-              if (typeof option === "string") {
-                return option;
-              }
-              // Add "xxx" option created dynamically
-              if (option.inputValue) {
-                return option.inputValue;
-              }
-              // Regular option
-              return option.title;
-            }}
-            renderOption={(props, option) => <li {...props}>{option.title}</li>}
-            sx={{ width: 300 }}
-            freeSolo
-            renderInput={(params) => (
-              <TextField {...params} label="Free solo with text demo" />
-            )}
-          />
+            <div className="m-4">
+              <TextField
+                id="outlined-basic"
+                label="Expense Category *"
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: "50px",
+                    borderRadius: "5px",
+                    "&:focus": {
+                      borderColor: "#000",
+                    },
+                  },
+                  width: "300px",
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="w-auto h-auto flex flex-row">
+            <div className="m-4">
+              <TextField
+                id="outlined-basic"
+                label="Name *"
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: "50px",
+                    borderRadius: "5px",
+                    "&:focus": {
+                      borderColor: "#000",
+                    },
+                  },
+                  width: "300px",
+                }}
+              />
+            </div>
+
+            <div className="m-4">
+              <TextField
+                id="outlined-basic"
+                label="Expense Category *"
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: "50px",
+                    borderRadius: "5px",
+                    "&:focus": {
+                      borderColor: "#000",
+                    },
+                  },
+                  width: "300px",
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="w-auto h-auto flex flex-row">
+            <div className="m-4">
+              <TextField
+                id="outlined-basic"
+                label="Name *"
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: "50px",
+                    borderRadius: "5px",
+                    "&:focus": {
+                      borderColor: "#000",
+                    },
+                  },
+                  width: "100%",
+                }}
+              />
+            </div>
+          </div>
           <DialogActions>
-            <Button autoFocus onClick={handleClickClose}>
-              Save changes
+            <Button autoFocus onClick={handleClickClose} variant="contained">
+              Submite
             </Button>
           </DialogActions>
         </BootstrapDialog>
       </div>
+      {/* the dilog box or window box ends here */}
     </div>
   );
 };
