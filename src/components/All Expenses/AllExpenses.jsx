@@ -132,6 +132,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  "& .MuiDataGrid-row": {
+    border: "none",
+    borderLeft: `4px solid yellow`, // Adjust the border style as needed
+    boxSizing: "border-box",
+    height: theme.spacing("auto"), // Adjust the row height to match your design
+    // width: theme.spacing("auto"), // Adjust the row height to match your design
+  },
+}));
 const AllExpenses = () => {
   const [openCreateModel, setOpencreateModel] = React.useState(false);
 
@@ -142,6 +151,10 @@ const AllExpenses = () => {
   const handleClickClose = () => {
     setOpencreateModel(false);
   };
+
+  // const dataGridStyle = {
+  //   border: "none",
+  // };
 
   return (
     <div className="w-full h-auto flex flex-col p-2">
@@ -184,13 +197,13 @@ const AllExpenses = () => {
         </div>
       </div>
       {/* the data table starts here */}
-      <div className="h-auto w-full p-4">
-        <DataGrid
+      <div className="h-auto w-full p-4 border-none">
+        <StyledDataGrid
+          // sx={dataGridStyle}
           rows={rows}
           columns={columns}
           pageSizeOptions={[5, 10]}
           checkboxSelection
-          getRowId={(row) => row.id}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 5 },
