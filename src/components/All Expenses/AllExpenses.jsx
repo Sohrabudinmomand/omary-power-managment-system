@@ -135,7 +135,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   "& .MuiDataGrid-row": {
     border: "none",
-    borderLeft: `4px solid yellow`, // Adjust the border style as needed
+    borderLeft: `3px solid #FECD07`,
+    // borderBottom: `4px solid #F8F8F8`, // Adjust the border style as needed
     boxSizing: "border-box",
     height: theme.spacing("auto"), // Adjust the row height to match your design
     // width: theme.spacing("auto"), // Adjust the row height to match your design
@@ -188,9 +189,29 @@ const AllExpenses = () => {
           />
         </div>
         <div>
-          <Stack spacing={2} direction="row" className="mt-2">
-            <Button variant="outlined">Filter</Button>
-            <Button onClick={handleClickOpen} variant="contained">
+          <Stack spacing={2} direction="row">
+            <Button
+              variant="outlined"
+              sx={{
+                color: "#112F53",
+                borderColor: "#112F53",
+                transition: "background-color 0.3s ease",
+                "&:hover": {
+                  backgroundColor: "#1976d2",
+                  borderColor: "#1976d2",
+                  color: "#ffffff",
+                },
+              }}
+            >
+              Filter
+            </Button>
+            <Button
+              onClick={handleClickOpen}
+              variant="contained"
+              sx={{
+                backgroundColor: "#112F53",
+              }}
+            >
               Create
             </Button>
           </Stack>
@@ -199,7 +220,6 @@ const AllExpenses = () => {
       {/* the data table starts here */}
       <div className="h-auto w-full p-4 border-none">
         <StyledDataGrid
-          // sx={dataGridStyle}
           rows={rows}
           columns={columns}
           pageSizeOptions={[5, 10]}
